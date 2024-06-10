@@ -50,7 +50,48 @@ const findDetailResep = async (req, res) => {
   }
 };
 
+const updateDetailResep = async (req, res) => {
+  try {
+    console.log(req.params.id)
+    console.log(req.body)
+    const updateDetailResep = await DetailResep.update(
+      req.body,{
+        where: { id: req.params.id }
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      message: "Successfully update Detail Resep",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+const deleteDetailResep = async (req, res) => {
+  try {
+    const deleteDetailResep = await DetailResep.destroy(
+      {
+        where: { id: req.params.id }
+      }
+    );
+    res.status(200).json({
+      status: "success",
+      message: "Successfully delete Detail Resep",
+    });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
 module.exports = {
   addDetailResep,
   findDetailResep,
+  updateDetailResep,
+  deleteDetailResep
 };
